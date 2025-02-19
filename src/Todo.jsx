@@ -1,15 +1,27 @@
-import { useState } from "react";
+
 import "./Todo.css";
+import { useState } from "react";
+import { IoMdCheckboxOutline } from "react-icons/io";
+import { MdDeleteForever } from "react-icons/md";
 
 export const Todo = () => {
     const [inputValue, setInputValue] = useState("");
+    const[task,setTask]=useState([]);
     const handleInputChange = (value) => {
         setInputValue(value);
     };
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-    };
+        if(!inputValue) return;
+
+        if(task.includes(inputValue)){
+            setInputValue("");
+             return;
+        }
+        setTask((prevTask)=>[...prevTask,inputValue]);
+        setInputValue("");
+    };  
 
     return (
         <section className="todo-container">
@@ -27,6 +39,19 @@ export const Todo = () => {
                         <button type="submit" className="todo-btn">Add Task</button>
                     </div>
                 </form>
+            </section>
+            <section className="myUnOrderList">
+                <ul>
+                    {
+                        task.map((curTask,index)=>{
+                            return <li key={index} className="todo-item">
+                                <span>{curTask}</span>
+                                <span><IoMdCheckboxOutline/></span>
+                                <span><MdDeleteForever /></span>
+                            </li>
+                        })
+                    }
+                </ul>
             </section>
         </section>
     );
