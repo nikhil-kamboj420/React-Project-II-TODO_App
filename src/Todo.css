@@ -96,6 +96,12 @@ body {
           width: 0;
           font-weight: 900;
         }
+        .checkList{
+          text-decoration: line-through;
+        }
+        .notCheckList{
+          text-decoration: none;
+        }
         span:nth-of-type(3) {
           color: red;
           font-size: 3rem;

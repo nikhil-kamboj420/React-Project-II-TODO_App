@@ -1,84 +1,73 @@
-
+import { useState } from "react";
 import "./Todo.css";
-import { useEffect, useState } from "react";
-import { IoMdCheckboxOutline } from "react-icons/io";
-import { MdDeleteForever } from "react-icons/md";
+import { TodoDate } from "./TodoDate";
+import { TodoForm } from "./TodoForm";
+import { TodoList } from "./TodoList";
+
+// todo component
 
 export const Todo = () => {
-    const [inputValue, setInputValue] = useState("");
-    const[task,setTask]=useState([]);
-    const[dateTime, setDateTime]=useState("");
-    const handleInputChange = (value) => {
-        setInputValue(value);
-    };
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        if(!inputValue) return;
+    //! sound effect
+const sound = new Audio("./public_notification.wav")
 
-        if(task.includes(inputValue)){
-            setInputValue("");
-             return;
-        }
-        setTask((prevTask)=>[...prevTask,inputValue]);
-        setInputValue("");
-    };  
- 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            let now = new Date();
-            let formattedDate = now.toLocaleDateString();
-            let time = new Date().toLocaleTimeString();
-            setDateTime(()=> `${formattedDate} - ${time}`) ;
- 
-        }, 1000);
-        return () => clearInterval(interval);
-    },[]);
+  // *useStates//
+  const [inputValue, setInputValue] = useState("");
+  const [task, setTask] = useState([]);
 
- 
-    const handleDeleteTodo = (curTask)=>{
-        let updatedTask = task.filter((task) => task !== curTask);
-        setTask(updatedTask);
+  // *input handling
+  const handleInputChange = (value) => {
+    setInputValue(value);
+  };
 
+  // *form handling
+  const handleFormSubmit = (e) => {
+    sound.play();
+    e.preventDefault();
+    if (!inputValue) return;
+
+    if (task.includes(inputValue)) {
+      setInputValue("");
+      sound.play();
+      return;
     }
+    setTask((prevTask) => [...prevTask, inputValue]);
+    setInputValue("");
+  };
 
-    const handleDeleteAll= ()=>{
-        setTask([]);
-    }
+  // *delete todo handling
 
+  const handleDeleteTodo = (curTask) => {
+    let updatedTask = task.filter((task) => task !== curTask);
+    setTask(updatedTask);
+  };
+  // *delete Alltodo handling
+  const handleDeleteAll = () => {
+    setTask([]);
+    sound.play();
+  };
 
-    return (
-        <section className="todo-container">
-            <header>
-                <h1>Todo List</h1>
-                <span className="date-time">{dateTime}</span>
-            </header>
-            <section className="form">
-                <form onSubmit={handleFormSubmit}>
-                    <div>
-                        <input type="text" className="todo-input" autoComplete="off"
-                            value={inputValue}
-                            onChange={(e) => handleInputChange(e.target.value)} />
-                    </div>
-                    <div>
-                        <button type="submit" className="todo-btn">Add Task</button>
-                    </div>
-                </form>
-            </section>
-            <section className="myUnOrderList">
-                <ul>
-                    {
-                        task.map((curTask,index)=>{
-                            return <li key={index} className="todo-item">
-                                <span>{curTask}</span>
-                                <span><IoMdCheckboxOutline/></span>
-                                <span onClick={()=>handleDeleteTodo(curTask)}><MdDeleteForever /></span>
-                            </li>
-                        })
-                    }
-                </ul>
-            </section>
-            <button className="delete-All-btn" onClick={handleDeleteAll}>Delete All</button>
-        </section>
-    );
+  return (
+    // todo container
+    <section className="todo-container">
+      <header>
+        <h1>Todo List</h1>
+        {/* date component */}
+        <TodoDate />
+      </header>
+      {/*from  component*/}
+      <TodoForm
+        formHandle={handleFormSubmit}
+        inputHandle={handleInputChange}
+        value={inputValue}
+      />
+
+      {/* list component */}
+      <TodoList task={task} deleteTodo={handleDeleteTodo} />
+      {/* delete ALl todo  */}
+      <button className="delete-All-btn" onClick={handleDeleteAll}>
+        Delete All
+      </button>
+    </section>
+  );
 };
