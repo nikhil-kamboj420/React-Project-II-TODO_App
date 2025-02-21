@@ -36,7 +36,7 @@ body {
     color: aliceblue;
   }
 
-  .date-time{
+  .date-time {
     color: hsla(51, 82%, 42%, 0.981);
     font-size: 2.3rem;
   }
@@ -53,7 +53,7 @@ body {
       width: 100%;
       margin-right: 1rem;
     }
-    .todo-input:focus{
+    .todo-input:focus {
       outline: none;
     }
     .todo-btn {
@@ -80,7 +80,7 @@ body {
         border: 2px solid rgb(248, 6, 131);
         gap: 2rem;
         display: grid;
-        grid-template-columns: 3fr .5fr .5fr;
+        grid-template-columns: 3fr 0.5fr 0.5fr;
         justify-content: space-around;
         border-radius: 3rem;
         align-items: center;
@@ -96,10 +96,10 @@ body {
           width: 0;
           font-weight: 900;
         }
-        .checkList{
-          text-decoration: line-through;
+        .checkList {
+          text-decoration: line-through black 0.5rem;
         }
-        .notCheckList{
+        .notCheckList {
           text-decoration: none;
         }
         span:nth-of-type(3) {
@@ -113,7 +113,7 @@ body {
     }
   }
 
-  .delete-All-btn{
+  .delete-All-btn {
     color: rgb(255, 253, 253);
     background-color: red;
     border: none;
@@ -121,7 +121,7 @@ body {
     padding: 1.2rem 2.2rem;
     font-size: 1.5rem;
     font-weight: 700;
-    letter-spacing: .1rem;
-    border-radius: 10px 10px ;
+    letter-spacing: 0.1rem;
+    border-radius: 10px 10px;
   }
 }

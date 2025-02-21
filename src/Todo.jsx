@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Todo.css";
+import "./todo.css";
 import { TodoDate } from "./TodoDate";
 import { TodoForm } from "./TodoForm";
 import { TodoList } from "./TodoList";
@@ -7,13 +7,13 @@ import { TodoList } from "./TodoList";
 // todo component
 
 export const Todo = () => {
-
-    //! sound effect
-const sound = new Audio("./public_notification.wav")
+  //! sound effect
+  const sound = new Audio("./public_notification.wav");
 
   // *useStates//
   const [inputValue, setInputValue] = useState("");
   const [task, setTask] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
 
   // *input handling
   const handleInputChange = (value) => {
@@ -32,18 +32,30 @@ const sound = new Audio("./public_notification.wav")
       return;
     }
     setTask((prevTask) => [...prevTask, inputValue]);
+    setCompletedTasks((prevCompleted) => [...prevCompleted, false]);
     setInputValue("");
   };
 
   // *delete todo handling
-
   const handleDeleteTodo = (curTask) => {
     let updatedTask = task.filter((task) => task !== curTask);
     setTask(updatedTask);
+    sound.play();
   };
+
   // *delete Alltodo handling
   const handleDeleteAll = () => {
     setTask([]);
+    sound.play();
+  };
+
+  // *toggle task completion
+  const handleToggleComplete = (index) => {
+    setCompletedTasks((prevCompleted) => {
+      const updated = [...prevCompleted];
+      updated[index] = !updated[index];
+      return updated;
+    });
     sound.play();
   };
 
@@ -63,7 +75,12 @@ const sound = new Audio("./public_notification.wav")
       />
 
       {/* list component */}
-      <TodoList task={task} deleteTodo={handleDeleteTodo} />
+      <TodoList
+        task={task}
+        deleteTodo={handleDeleteTodo}
+        completedTasks={completedTasks}
+        toggleComplete={handleToggleComplete}
+      />
       {/* delete ALl todo  */}
       <button className="delete-All-btn" onClick={handleDeleteAll}>
         Delete All
