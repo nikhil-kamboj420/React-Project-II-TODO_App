@@ -3,17 +3,18 @@ import "./todo.css";
 import { TodoDate } from "./TodoDate";
 import { TodoForm } from "./TodoForm";
 import { TodoList } from "./TodoList";
+import { getLocalStorageData, setLocalStorageData } from "./TodoLocalStorageData";
 
 // todo component
-
 export const Todo = () => {
   //! sound effect
   const sound = new Audio("./public_notification.wav");
 
+
   // *useStates//
   const [inputValue, setInputValue] = useState("");
-  const [task, setTask] = useState([]);
-  const [completedTasks, setCompletedTasks] = useState([]);
+const [task, setTask] = useState(()=>getLocalStorageData());
+  const [completedTasks, setCompletedTasks] = useState([] );
 
   // *input handling
   const handleInputChange = (value) => {
@@ -59,6 +60,9 @@ export const Todo = () => {
     sound.play();
   };
 
+//* add data to Local Storage
+setLocalStorageData(task);
+  
   return (
     // todo container
     <section className="todo-container">
