@@ -1,6 +1,6 @@
 
-import './App.css'
-import { Todo } from './Todo'
+import './components/Todo.css'
+import { Todo } from './components/Todo'
 
 function App() {
   
