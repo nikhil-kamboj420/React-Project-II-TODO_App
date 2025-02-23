@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base:" React-Project-II-TODO_App",
+  base:"/React-Project-II-TODO_App",
   plugins: [react()],
 })
