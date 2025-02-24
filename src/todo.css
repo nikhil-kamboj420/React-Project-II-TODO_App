@@ -128,7 +128,7 @@ body {
     outline: none;
     padding: 1.2rem 2.2rem;
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 900;
     letter-spacing: 0.1rem;
     border-radius: 10px 10px;
   }
@@ -140,16 +140,15 @@ body {
 
 @media (max-width:483px) {
   html{
-    font-size: 56% ;
+    font-size: 60% !important;
   }
   .todo-btn {
-    padding: 1rem 1rem !important;
-    font-size: 2 !important;
+    font-size: 1.4rem !important;
+    width: 10rem;
+    word-spacing: -0.3rem;
+    font-weight: 700;
+    height: 4.42rem;
+    position: relative;
+    bottom: .25rem;
   }
 }
-@media (max-width:408px) {
-  html{
-    font-size: 43% ;
-  }
-}
-  
